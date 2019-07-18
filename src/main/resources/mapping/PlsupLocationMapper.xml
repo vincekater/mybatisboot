@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szpnr.plsup.mybatis.dao.PlsupLocationMapper">
+  <resultMap id="BaseResultMap" type="com.szpnr.plsup.mybatis.model.PlsupLocation">
+    <id column="LOCATION_ID" jdbcType="DECIMAL" property="locationId" />
+    <result column="LOCATION_NAME" jdbcType="VARCHAR" property="locationName" />
+    <result column="LOCATION_CODE" jdbcType="VARCHAR" property="locationCode" />
+    <result column="LOCATION_LEVEL" jdbcType="VARCHAR" property="locationLevel" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="LOCATION_CODE_JCGIS" jdbcType="VARCHAR" property="locationCodeJcgis" />
+    <result column="LOCATION_CODE_IBMS1" jdbcType="VARCHAR" property="locationCodeIbms1" />
+    <result column="LOCATION_CODE_IBMS2" jdbcType="VARCHAR" property="locationCodeIbms2" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="LOCATION_ADDR" jdbcType="VARCHAR" property="locationAddr" />
+    <result column="LOCATION_TEL" jdbcType="VARCHAR" property="locationTel" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="LOCATION_CODE_IBMS_ZONE" jdbcType="VARCHAR" property="locationCodeIbmsZone" />
+    <result column="LOCATION_CODE_IBMS_SUB" jdbcType="VARCHAR" property="locationCodeIbmsSub" />
+    <result column="LOCATION_AREA" jdbcType="DECIMAL" property="locationArea" />
+    <result column="LOCATION_IBMS_CODE" jdbcType="VARCHAR" property="locationIbmsCode" />
+    <result column="LOCATION_IBMS_LEVEL" jdbcType="VARCHAR" property="locationIbmsLevel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LOCATION_ID, LOCATION_NAME, LOCATION_CODE, LOCATION_LEVEL, PARENT_CODE, LOCATION_CODE_JCGIS, 
+    LOCATION_CODE_IBMS1, LOCATION_CODE_IBMS2, IS_DEL, LOCATION_ADDR, LOCATION_TEL, REMARK, 
+    LOCATION_CODE_IBMS_ZONE, LOCATION_CODE_IBMS_SUB, LOCATION_AREA, LOCATION_IBMS_CODE, 
+    LOCATION_IBMS_LEVEL
+  </sql>
+  <select id="selectByExample" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocationCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PLSUP_LOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PLSUP_LOCATION
+    where LOCATION_ID = #{locationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from PLSUP_LOCATION
+    where LOCATION_ID = #{locationId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocationCriteria">
+    delete from PLSUP_LOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocation">
+    insert into PLSUP_LOCATION (LOCATION_ID, LOCATION_NAME, LOCATION_CODE, 
+      LOCATION_LEVEL, PARENT_CODE, LOCATION_CODE_JCGIS, 
+      LOCATION_CODE_IBMS1, LOCATION_CODE_IBMS2, IS_DEL, 
+      LOCATION_ADDR, LOCATION_TEL, REMARK, 
+      LOCATION_CODE_IBMS_ZONE, LOCATION_CODE_IBMS_SUB, 
+      LOCATION_AREA, LOCATION_IBMS_CODE, LOCATION_IBMS_LEVEL
+      )
+    values (#{locationId,jdbcType=DECIMAL}, #{locationName,jdbcType=VARCHAR}, #{locationCode,jdbcType=VARCHAR}, 
+      #{locationLevel,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{locationCodeJcgis,jdbcType=VARCHAR}, 
+      #{locationCodeIbms1,jdbcType=VARCHAR}, #{locationCodeIbms2,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, 
+      #{locationAddr,jdbcType=VARCHAR}, #{locationTel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{locationCodeIbmsZone,jdbcType=VARCHAR}, #{locationCodeIbmsSub,jdbcType=VARCHAR}, 
+      #{locationArea,jdbcType=DECIMAL}, #{locationIbmsCode,jdbcType=VARCHAR}, #{locationIbmsLevel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocation">
+    insert into PLSUP_LOCATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="locationId != null">
+        LOCATION_ID,
+      </if>
+      <if test="locationName != null">
+        LOCATION_NAME,
+      </if>
+      <if test="locationCode != null">
+        LOCATION_CODE,
+      </if>
+      <if test="locationLevel != null">
+        LOCATION_LEVEL,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="locationCodeJcgis != null">
+        LOCATION_CODE_JCGIS,
+      </if>
+      <if test="locationCodeIbms1 != null">
+        LOCATION_CODE_IBMS1,
+      </if>
+      <if test="locationCodeIbms2 != null">
+        LOCATION_CODE_IBMS2,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="locationAddr != null">
+        LOCATION_ADDR,
+      </if>
+      <if test="locationTel != null">
+        LOCATION_TEL,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="locationCodeIbmsZone != null">
+        LOCATION_CODE_IBMS_ZONE,
+      </if>
+      <if test="locationCodeIbmsSub != null">
+        LOCATION_CODE_IBMS_SUB,
+      </if>
+      <if test="locationArea != null">
+        LOCATION_AREA,
+      </if>
+      <if test="locationIbmsCode != null">
+        LOCATION_IBMS_CODE,
+      </if>
+      <if test="locationIbmsLevel != null">
+        LOCATION_IBMS_LEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="locationId != null">
+        #{locationId,jdbcType=DECIMAL},
+      </if>
+      <if test="locationName != null">
+        #{locationName,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCode != null">
+        #{locationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationLevel != null">
+        #{locationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeJcgis != null">
+        #{locationCodeJcgis,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbms1 != null">
+        #{locationCodeIbms1,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbms2 != null">
+        #{locationCodeIbms2,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="locationAddr != null">
+        #{locationAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="locationTel != null">
+        #{locationTel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbmsZone != null">
+        #{locationCodeIbmsZone,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbmsSub != null">
+        #{locationCodeIbmsSub,jdbcType=VARCHAR},
+      </if>
+      <if test="locationArea != null">
+        #{locationArea,jdbcType=DECIMAL},
+      </if>
+      <if test="locationIbmsCode != null">
+        #{locationIbmsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationIbmsLevel != null">
+        #{locationIbmsLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocationCriteria" resultType="java.lang.Long">
+    select count(*) from PLSUP_LOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PLSUP_LOCATION
+    <set>
+      <if test="record.locationId != null">
+        LOCATION_ID = #{record.locationId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.locationName != null">
+        LOCATION_NAME = #{record.locationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCode != null">
+        LOCATION_CODE = #{record.locationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationLevel != null">
+        LOCATION_LEVEL = #{record.locationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentCode != null">
+        PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCodeJcgis != null">
+        LOCATION_CODE_JCGIS = #{record.locationCodeJcgis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCodeIbms1 != null">
+        LOCATION_CODE_IBMS1 = #{record.locationCodeIbms1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCodeIbms2 != null">
+        LOCATION_CODE_IBMS2 = #{record.locationCodeIbms2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationAddr != null">
+        LOCATION_ADDR = #{record.locationAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationTel != null">
+        LOCATION_TEL = #{record.locationTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCodeIbmsZone != null">
+        LOCATION_CODE_IBMS_ZONE = #{record.locationCodeIbmsZone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCodeIbmsSub != null">
+        LOCATION_CODE_IBMS_SUB = #{record.locationCodeIbmsSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationArea != null">
+        LOCATION_AREA = #{record.locationArea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.locationIbmsCode != null">
+        LOCATION_IBMS_CODE = #{record.locationIbmsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationIbmsLevel != null">
+        LOCATION_IBMS_LEVEL = #{record.locationIbmsLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PLSUP_LOCATION
+    set LOCATION_ID = #{record.locationId,jdbcType=DECIMAL},
+      LOCATION_NAME = #{record.locationName,jdbcType=VARCHAR},
+      LOCATION_CODE = #{record.locationCode,jdbcType=VARCHAR},
+      LOCATION_LEVEL = #{record.locationLevel,jdbcType=VARCHAR},
+      PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      LOCATION_CODE_JCGIS = #{record.locationCodeJcgis,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS1 = #{record.locationCodeIbms1,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS2 = #{record.locationCodeIbms2,jdbcType=VARCHAR},
+      IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      LOCATION_ADDR = #{record.locationAddr,jdbcType=VARCHAR},
+      LOCATION_TEL = #{record.locationTel,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS_ZONE = #{record.locationCodeIbmsZone,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS_SUB = #{record.locationCodeIbmsSub,jdbcType=VARCHAR},
+      LOCATION_AREA = #{record.locationArea,jdbcType=DECIMAL},
+      LOCATION_IBMS_CODE = #{record.locationIbmsCode,jdbcType=VARCHAR},
+      LOCATION_IBMS_LEVEL = #{record.locationIbmsLevel,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocation">
+    update PLSUP_LOCATION
+    <set>
+      <if test="locationName != null">
+        LOCATION_NAME = #{locationName,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCode != null">
+        LOCATION_CODE = #{locationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationLevel != null">
+        LOCATION_LEVEL = #{locationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeJcgis != null">
+        LOCATION_CODE_JCGIS = #{locationCodeJcgis,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbms1 != null">
+        LOCATION_CODE_IBMS1 = #{locationCodeIbms1,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbms2 != null">
+        LOCATION_CODE_IBMS2 = #{locationCodeIbms2,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="locationAddr != null">
+        LOCATION_ADDR = #{locationAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="locationTel != null">
+        LOCATION_TEL = #{locationTel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbmsZone != null">
+        LOCATION_CODE_IBMS_ZONE = #{locationCodeIbmsZone,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCodeIbmsSub != null">
+        LOCATION_CODE_IBMS_SUB = #{locationCodeIbmsSub,jdbcType=VARCHAR},
+      </if>
+      <if test="locationArea != null">
+        LOCATION_AREA = #{locationArea,jdbcType=DECIMAL},
+      </if>
+      <if test="locationIbmsCode != null">
+        LOCATION_IBMS_CODE = #{locationIbmsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locationIbmsLevel != null">
+        LOCATION_IBMS_LEVEL = #{locationIbmsLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOCATION_ID = #{locationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.szpnr.plsup.mybatis.model.PlsupLocation">
+    update PLSUP_LOCATION
+    set LOCATION_NAME = #{locationName,jdbcType=VARCHAR},
+      LOCATION_CODE = #{locationCode,jdbcType=VARCHAR},
+      LOCATION_LEVEL = #{locationLevel,jdbcType=VARCHAR},
+      PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      LOCATION_CODE_JCGIS = #{locationCodeJcgis,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS1 = #{locationCodeIbms1,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS2 = #{locationCodeIbms2,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      LOCATION_ADDR = #{locationAddr,jdbcType=VARCHAR},
+      LOCATION_TEL = #{locationTel,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS_ZONE = #{locationCodeIbmsZone,jdbcType=VARCHAR},
+      LOCATION_CODE_IBMS_SUB = #{locationCodeIbmsSub,jdbcType=VARCHAR},
+      LOCATION_AREA = #{locationArea,jdbcType=DECIMAL},
+      LOCATION_IBMS_CODE = #{locationIbmsCode,jdbcType=VARCHAR},
+      LOCATION_IBMS_LEVEL = #{locationIbmsLevel,jdbcType=VARCHAR}
+    where LOCATION_ID = #{locationId,jdbcType=DECIMAL}
+  </update>
+</mapper>
