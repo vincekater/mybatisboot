@@ -1,14 +1,19 @@
 package com.szpnr.plsup.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import javax.sql.DataSource;
 
-@ConfigurationProperties(prefix = "application-dao")
+import javax.sql.DataSource;
+import java.util.Properties;
+
+@Configuration
 public class DataSourceConfig {
     @Value("${spring.datasource.url}")
     private String dbUrl;
@@ -33,6 +38,7 @@ public class DataSourceConfig {
     @Value("${spring.datasource.filters}")
     private String filters;
 
+
     @Bean
     @Primary
     public DataSource dataSource(){
@@ -41,13 +47,46 @@ public class DataSourceConfig {
         druidDataSource.setUsername(username);
         druidDataSource.setPassword(password);
         druidDataSource.setDriverClassName(driverClassName);
-
         druidDataSource.setInitialSize(initialSize);
         druidDataSource.setMinIdle(minIdle);
         druidDataSource.setMaxActive(maxActive);
         druidDataSource.setMaxWait(maxWait);
         druidDataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
         return druidDataSource;
+    }
+
+
+    /**
+     * mybatis plus page分页插件
+     * @return
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor(){
+        return new PaginationInterceptor();
+    }
+
+    /**
+     * mybatis plus page分页插件，打印sql语句
+     * @return
+     */
+    @Bean
+    public PerformanceInterceptor performanceInterceptor(){
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+        Properties properties = new Properties();
+        properties.setProperty("format","false");
+        performanceInterceptor.setProperties(properties);
+        return performanceInterceptor;
+    }
+
+    /**
+     * 主键使用
+     *create sequence SEQ_PLSUP_DEFAULT minvalue 2211000000 maxvalue 9999999999999999 start with 2211000000 increment by 1 nocache;
+     *keyGenerator: com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator
+     * @return
+     */
+    @Bean
+    public OracleKeyGenerator oracleKeyGenerator(){
+        return new OracleKeyGenerator();
     }
 
 }

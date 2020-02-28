@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE weblogic-web-app PUBLIC "-//BEA Systems, Inc.//DTD Web Application 8.1//EN" "http://www.bea.com/servers/wls810/dtd/weblogic810-web-jar.dtd">
+<weblogic-web-app>
+    <container-descriptor>
+        <index-directory-enabled>true</index-directory-enabled>
+        <prefer-web-inf-classes>true</prefer-web-inf-classes>
+    </container-descriptor>
+    <virtual-directory-mapping>
+        <local-path>E:/</local-path>
+        <url-pattern>/upload/plsup/*</url-pattern>
+    </virtual-directory-mapping>
+    <virtual-directory-mapping>
+        <local-path>E:/</local-path>
+        <url-pattern>/applications/upload/*</url-pattern>
+    </virtual-directory-mapping>
+    <context-root>/plsup2</context-root>
+</weblogic-web-app>

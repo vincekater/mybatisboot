@@ -1,7 +1,7 @@
 spring:
  datasource:
    url: jdbc:oracle:thin:@192.168.110.2:1521:oraplan
-   driver-class-name: oracle.jdbc.driver.OracleDriver
+   driverClassName: oracle.jdbc.driver.OracleDriver
    username: suplis
    password: plansuplis
    ###################以下为druid增加的配置###########################
@@ -32,21 +32,35 @@ spring:
    useGlobalDataSourceStat: true
    #jndi-name: plsup
    ###############以上为配置druid添加的配置########################################
- jpa:
-   database: oracle
-   show-sql: true
+ #jpa:
+ #  database: oracle
+ #  show-sql: true
+#
+# mvc:
+#   view:
+#     prefix: /WEB-INF/jsp/
+#     suffix: .jsp
+#
+#mybatis:
+#  mapper-locations: classpath:mapping/*.xml
+#  type-aliases-package: com.szpnr.plsup.mybatis.model
+mybatis-plus:
+###  #实体扫描，多个package用逗号或者分号分隔
+#  typeAliasesPackage: com.szpnr.plsup.base.model,com.szhome.security.ext
+#  mapperLocations: classpath:/mapping/*Mapper.xml
+  check-config-location: true
+  configuration:
+    jdbcTypeForNull: 'null'
+    cacheEnabled: false
+    callSettersOnNulls: true
+  globalConfig:
+    dbConfig:
+      dbType: oracle
 
- mvc:
-   view:
-     prefix: /WEB-INF/jsp/
-     suffix: .jsp
 
-mybatis:
-  mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.szpnr.plsup.mybatis.model
 
 logging:
-  file: D:/ideaWorkspace/log/springbootdemo.log
+#  file: D:/ideaWorkspace/log/springbootdemo.log
 #   hibernate:
 #     naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
@@ -55,4 +69,4 @@ server:
   port: 8080
   #项目名，如果不设定，默认是 /
   servlet:
-    context-path: /springboot
+      context-path: /plsup2
